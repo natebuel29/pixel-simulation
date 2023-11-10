@@ -2,23 +2,22 @@
 // GLOBALS
 
 const displaySize = 500;
-const tempColor = "rgba(" + 145 + "," + 144 + "," + 78 + "," + (255 / 255) + ")";
+const tempColor = "rgba(" + 194 + "," + 178 + "," + 128 + "," + (255 / 255) + ")";
+const r = 194;
+const g = 178;
+const b = 128;
 var mouseX = 0;
 var mouseY = 0;
 var mousePressed = false;
 var canvas;
 var ctx;
-//Should we use an old and new grid when updated?
 var gameWorld = Array.from(Array(100), () => new Array(100))
 
 
-//BUGS:
-
-// When sand reaches left or right borders than an error is thrown
-
-function round5(x) {
-    return Math.floor(x / 5) * 5;
+function getRandomColor() {
+    return "rgba(" + (194 + getRandomInt(20)) + "," + (178 + getRandomInt(20)) + "," + (128 + getRandomInt(20)) + "," + (255 / 255) + ")";
 }
+
 
 function getCursorPosition(canvas, event) {
     const rect = canvas.getBoundingClientRect();
@@ -61,6 +60,9 @@ function simulate() {
         canvas.width, canvas.height);
     for (var j = 99; j >= 0; j--) {
         for (var i = 99; i >= 0; i--) {
+            var inBoundsRight = i + 1 < 100;
+            var inBoundsLeft = i - 1 >= 0;
+
             // If no particle below, then move down
             if (gameWorld[i][j] === 1 && gameWorld[i][j + 1] != 1) {
                 if (j + 1 < 100) {
@@ -68,21 +70,21 @@ function simulate() {
                     gameWorld[i][j + 1] = 1;
                 }
             }
-            else if (gameWorld[i][j] === 1 && gameWorld[i + 1][j + 1] != 1 && gameWorld[i - 1][j + 1] != 1) {
+            else if (gameWorld[i][j] === 1 && inBoundsRight && inBoundsLeft && gameWorld[i + 1][j + 1] != 1 && gameWorld[i - 1][j + 1] != 1) {
                 if (j + 1 < 100 && i + 1 < 100) {
                     var randomDirection = Math.random() > 0.5 ? 1 : -1;
                     gameWorld[i][j] = 0;
                     gameWorld[i + randomDirection][j + 1] = 1;
                 }
             }
-            else if (gameWorld[i][j] === 1 && gameWorld[i + 1][j + 1] != 1) {
+            else if (gameWorld[i][j] === 1 && inBoundsRight && gameWorld[i + 1][j + 1] != 1) {
                 if (j + 1 < 100 && i + 1 < 100) {
                     gameWorld[i][j] = 0;
                     gameWorld[i + 1][j + 1] = 1;
                 }
             }
-            else if (gameWorld[i][j] === 1 && j + 1 && i - 1 >= 0 < 100 && gameWorld[i - 1][j + 1] != 1) {
-                if (j + 1 < 100 && i - 1 >= 0) {
+            else if (gameWorld[i][j] === 1 && j + 1 < 100 && i - 1 >= 0) {
+                if (gameWorld[i - 1][j + 1] != 1) {
                     gameWorld[i][j] = 0;
                     gameWorld[i - 1][j + 1] = 1;
                 }
@@ -93,7 +95,6 @@ function simulate() {
     if (mousePressed) {
         var x = mouseX / 5;
         var y = mouseY / 5;
-        // console.log("x: " + x + " y: " + y);
 
         if (x >= 0 && x < 100 && y >= 0 && y < 100 && gameWorld[x][y] === 0) {
             gameWorld[x][y] = 1;
@@ -109,7 +110,9 @@ function render() {
         for (var j = 0; j < 100; j++) {
             if (gameWorld[i][j] === 1) {
                 ctx = canvas.getContext('2d');
-                ctx.fillStyle = tempColor;
+                var color = getRandomColor();
+                console.log(color);
+                ctx.fillStyle = color;
                 ctx.fillRect(i * 5, j * 5, 5, 5);
             }
         }
@@ -130,10 +133,8 @@ window.onload = function () {
 
 
 function gameLoop() {
-    console.log("frame started");
     simulate();
     render();
-    console.log("frame ended");
     setTimeout(() => {
         window.requestAnimationFrame(gameLoop);
     }, 1000 / 40);
