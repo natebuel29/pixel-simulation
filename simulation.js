@@ -14,11 +14,6 @@ var ctx;
 var gameWorld = Array.from(Array(100), () => new Array(100))
 
 
-function getRandomColor() {
-    return "rgba(" + (194 + getRandomInt(20)) + "," + (178 + getRandomInt(20)) + "," + (128 + getRandomInt(20)) + "," + (255 / 255) + ")";
-}
-
-
 function getCursorPosition(canvas, event) {
     const rect = canvas.getBoundingClientRect();
     var x = event.clientX - rect.left;
@@ -53,48 +48,14 @@ function init() {
     initEventListener(canvas);
 }
 
-// function sand_rules() { }
-
 function simulate() {
     ctx.clearRect(0, 0,
         canvas.width, canvas.height);
     for (var j = 99; j >= 0; j--) {
         for (var i = 99; i >= 0; i--) {
-            var inBoundsRight = i + 1 < 100;
-            var inBoundsLeft = i - 1 >= 0;
-
-            // If no particle below, then move down
-            if (gameWorld[i][j] !== 0 && gameWorld[i][j + 1] === 0) {
-                if (j + 1 < 100) {
-                    var currSand = gameWorld[i][j];
-                    gameWorld[i][j + 1] = currSand;
-                    gameWorld[i][j] = 0;
-
-                }
-            }
-            else if (gameWorld[i][j] !== 0 && inBoundsRight && inBoundsLeft && gameWorld[i + 1][j + 1] === 0 && gameWorld[i - 1][j + 1] === 0) {
-                if (j + 1 < 100 && i + 1 < 100) {
-                    var randomDirection = Math.random() > 0.5 ? 1 : -1;
-                    var currSand = gameWorld[i][j];
-                    gameWorld[i + randomDirection][j + 1] = currSand;
-                    gameWorld[i][j] = 0;
-
-                }
-            }
-            else if (gameWorld[i][j] !== 0 && inBoundsRight && gameWorld[i + 1][j + 1] === 0) {
-                if (j + 1 < 100 && i + 1 < 100) {
-                    var currSand = gameWorld[i][j];
-                    gameWorld[i + 1][j + 1] = currSand;
-                    gameWorld[i][j] = 0;
-                }
-            }
-            else if (gameWorld[i][j] !== 0 && j + 1 < 100 && i - 1 >= 0) {
-                if (gameWorld[i - 1][j + 1] === 0) {
-                    var currSand = gameWorld[i][j];
-                    gameWorld[i - 1][j + 1] = currSand;
-                    gameWorld[i][j] = 0;
-
-                }
+            if (gameWorld[i][j] !== 0) {
+                var particle = gameWorld[i][j];
+                particle.simulate(gameWorld, i, j);
             }
         }
     }
