@@ -11,8 +11,8 @@ var mouseY = 0;
 var mousePressed = false;
 var canvas;
 var ctx;
-var gameWorld = Array.from(Array(100), () => new Array(100))
-
+var gameWorld = Array.from(Array(100), () => new Array(100));
+var currParticleFunction = () => new Sand();
 
 function getCursorPosition(canvas, event) {
     const rect = canvas.getBoundingClientRect();
@@ -40,6 +40,15 @@ function initEventListener(canvas) {
         mouseX = x;
         mouseY = y;
     });
+
+    document.addEventListener("keydown", (event) => {
+        console.log(event.key === 'w');
+        if (event.key === 'w') {
+            currParticleFunction = () => new Wood();
+        } else if (event.key === 's') {
+            currParticleFunction = () => new Sand();
+        }
+    })
 }
 
 function init() {
@@ -65,7 +74,7 @@ function simulate() {
         var y = mouseY / 5;
 
         if (x >= 0 && x < 100 && y >= 0 && y < 100 && gameWorld[x][y] === 0) {
-            gameWorld[x][y] = new Sand();
+            gameWorld[x][y] = currParticleFunction();
         }
     }
 
