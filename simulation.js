@@ -64,29 +64,36 @@ function simulate() {
             var inBoundsLeft = i - 1 >= 0;
 
             // If no particle below, then move down
-            if (gameWorld[i][j] === 1 && gameWorld[i][j + 1] != 1) {
+            if (gameWorld[i][j] !== 0 && gameWorld[i][j + 1] === 0) {
                 if (j + 1 < 100) {
+                    var currSand = gameWorld[i][j];
+                    gameWorld[i][j + 1] = currSand;
                     gameWorld[i][j] = 0;
-                    gameWorld[i][j + 1] = 1;
+
                 }
             }
-            else if (gameWorld[i][j] === 1 && inBoundsRight && inBoundsLeft && gameWorld[i + 1][j + 1] != 1 && gameWorld[i - 1][j + 1] != 1) {
+            else if (gameWorld[i][j] !== 0 && inBoundsRight && inBoundsLeft && gameWorld[i + 1][j + 1] === 0 && gameWorld[i - 1][j + 1] === 0) {
                 if (j + 1 < 100 && i + 1 < 100) {
                     var randomDirection = Math.random() > 0.5 ? 1 : -1;
+                    var currSand = gameWorld[i][j];
+                    gameWorld[i + randomDirection][j + 1] = currSand;
                     gameWorld[i][j] = 0;
-                    gameWorld[i + randomDirection][j + 1] = 1;
+
                 }
             }
-            else if (gameWorld[i][j] === 1 && inBoundsRight && gameWorld[i + 1][j + 1] != 1) {
+            else if (gameWorld[i][j] !== 0 && inBoundsRight && gameWorld[i + 1][j + 1] === 0) {
                 if (j + 1 < 100 && i + 1 < 100) {
+                    var currSand = gameWorld[i][j];
+                    gameWorld[i + 1][j + 1] = currSand;
                     gameWorld[i][j] = 0;
-                    gameWorld[i + 1][j + 1] = 1;
                 }
             }
-            else if (gameWorld[i][j] === 1 && j + 1 < 100 && i - 1 >= 0) {
-                if (gameWorld[i - 1][j + 1] != 1) {
+            else if (gameWorld[i][j] !== 0 && j + 1 < 100 && i - 1 >= 0) {
+                if (gameWorld[i - 1][j + 1] === 0) {
+                    var currSand = gameWorld[i][j];
+                    gameWorld[i - 1][j + 1] = currSand;
                     gameWorld[i][j] = 0;
-                    gameWorld[i - 1][j + 1] = 1;
+
                 }
             }
         }
@@ -97,7 +104,7 @@ function simulate() {
         var y = mouseY / 5;
 
         if (x >= 0 && x < 100 && y >= 0 && y < 100 && gameWorld[x][y] === 0) {
-            gameWorld[x][y] = 1;
+            gameWorld[x][y] = new Sand();
         }
     }
 
@@ -108,10 +115,10 @@ function simulate() {
 function render() {
     for (var i = 0; i < 100; i++) {
         for (var j = 0; j < 100; j++) {
-            if (gameWorld[i][j] === 1) {
+            if (gameWorld[i][j] !== 0) {
+                var sand = gameWorld[i][j]
                 ctx = canvas.getContext('2d');
-                var color = getRandomColor();
-                console.log(color);
+                var color = sand.color;
                 ctx.fillStyle = color;
                 ctx.fillRect(i * 5, j * 5, 5, 5);
             }
