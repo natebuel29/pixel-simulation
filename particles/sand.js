@@ -27,12 +27,10 @@ class Sand extends Particle {
 
             }
         }
-        else if (gameWorld[x][y] !== 0 && inBoundsRight && gameWorld[x + 1][y + 1] === 0) {
-            if (y + 1 < 100 && x + 1 < 100) {
-                var currSand = gameWorld[x][y];
-                gameWorld[x + 1][y + 1] = currSand;
-                gameWorld[x][y] = 0;
-            }
+        else if (gameWorld[x][y] !== 0 && inBoundsRight && (y + 1 < 100 && x + 1 < 100) && gameWorld[x + 1][y + 1] === 0) {
+            var currSand = gameWorld[x][y];
+            gameWorld[x + 1][y + 1] = currSand;
+            gameWorld[x][y] = 0;
         }
         else if (gameWorld[x][y] !== 0 && y + 1 < 100 && x - 1 >= 0) {
             if (gameWorld[x - 1][y + 1] === 0) {

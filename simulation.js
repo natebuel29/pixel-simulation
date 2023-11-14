@@ -13,6 +13,8 @@ var canvas;
 var ctx;
 var gameWorld = Array.from(Array(100), () => new Array(100));
 var currParticleFunction = () => new Sand();
+var paused = false;
+var frameCount = 0;
 
 function getCursorPosition(canvas, event) {
     const rect = canvas.getBoundingClientRect();
@@ -47,6 +49,9 @@ function initEventListener(canvas) {
             currParticleFunction = () => new Wood();
         } else if (event.key === 's') {
             currParticleFunction = () => new Sand();
+        } else if (event.key === 'p') {
+            console.log("pause this bitch");
+            paused = !paused;
         }
     })
 }
@@ -58,10 +63,10 @@ function init() {
 }
 
 function simulate() {
-    ctx.clearRect(0, 0,
-        canvas.width, canvas.height);
+
+    var ran = frameCount % 2 == 0 ? true : false;
     for (var j = 99; j >= 0; j--) {
-        for (var i = 99; i >= 0; i--) {
+        for (ran ? i = 99 : i = 0; ran ? i >= 0 : i < 100; ran ? i-- : i++) {
             if (gameWorld[i][j] !== 0) {
                 var particle = gameWorld[i][j];
                 particle.simulate(gameWorld, i, j);
@@ -73,22 +78,34 @@ function simulate() {
         var x = mouseX / 5;
         var y = mouseY / 5;
 
-        if (x >= 0 && x < 100 && y >= 0 && y < 100 && gameWorld[x][y] === 0) {
-            gameWorld[x][y] = currParticleFunction();
-        }
+        drawFilledCircle(x, y, 3)
     }
 
 }
 
+// Function to draw a filled circle on the canvas using pixels
+function drawFilledCircle(centerX, centerY, radius) {
+    for (let x = -radius; x <= radius; x++) {
+        for (let y = -radius; y <= radius; y++) {
+            if (x * x + y * y < radius * radius) {
+                if ((centerX + x) >= 0 && (centerX + x) < 100 && (centerY + y) >= 0 && (centerY + y) < 100 && gameWorld[(centerX + x)][(centerY + y)] === 0) {
+                    gameWorld[(centerX + x)][(centerY + y)] = currParticleFunction();
+                }
+            }
+        }
+    }
+}
 
 
 function render() {
+    ctx.clearRect(0, 0,
+        canvas.width, canvas.height);
     for (var i = 0; i < 100; i++) {
         for (var j = 0; j < 100; j++) {
             if (gameWorld[i][j] !== 0) {
-                var sand = gameWorld[i][j]
+                var particle = gameWorld[i][j]
                 ctx = canvas.getContext('2d');
-                var color = sand.color;
+                var color = particle.color;
                 ctx.fillStyle = color;
                 ctx.fillRect(i * 5, j * 5, 5, 5);
             }
@@ -110,11 +127,15 @@ window.onload = function () {
 
 
 function gameLoop() {
-    simulate();
+    frameCount++;
+    if (!paused) {
+        simulate();
+    }
     render();
+    //drawFilledCircle(50, 50, 20);
     setTimeout(() => {
         window.requestAnimationFrame(gameLoop);
-    }, 1000 / 40);
+    }, 1000 / 60);
 }
 
 
