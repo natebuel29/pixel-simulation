@@ -12,9 +12,17 @@ var mousePressed = false;
 var canvas;
 var ctx;
 var gameWorld = Array.from(Array(100), () => new Array(100));
-var currParticleFunction = () => new Sand();
+var currParticleFunction = () => new Water();
 var paused = false;
 var frameCount = 0;
+
+var slider = document.getElementById("myRange");
+var radius = slider.value;
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function () {
+    radius = this.value;
+}
 
 function getCursorPosition(canvas, event) {
     const rect = canvas.getBoundingClientRect();
@@ -22,7 +30,6 @@ function getCursorPosition(canvas, event) {
     var y = event.clientY - rect.top;
     x = round5(x);
     y = round5(y);
-    //   console.log("x: " + x / 5 + " y: " + y / 5);
     return { x, y };
 }
 
@@ -56,6 +63,30 @@ function initEventListener(canvas) {
     })
 }
 
+function clearBoard() {
+    for (var i = 0; i < 100; i++) {
+        for (var j = 0; j < 100; j++) {
+            gameWorld[i][j] = 0;
+        }
+    }
+}
+
+function updateParticle(particleName) {
+    switch (particleName) {
+        case "sand":
+            console.log("sand");
+            currParticleFunction = () => new Sand();
+            break;
+        case "wood":
+            console.log("wood");
+            currParticleFunction = () => new Wood();
+            break;
+        case "clear":
+            clearBoard();
+            break;
+    }
+}
+
 function init() {
     canvas = document.getElementById('game');
     ctx = canvas.getContext('2d');
@@ -78,7 +109,7 @@ function simulate() {
         var x = mouseX / 5;
         var y = mouseY / 5;
 
-        drawFilledCircle(x, y, 3)
+        drawFilledCircle(x, y, radius)
     }
 
 }

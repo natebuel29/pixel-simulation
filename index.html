@@ -10,11 +10,19 @@
     <div class="gameDiv">
         <canvas id="game" width="500" height="500" style="border:3px solid #000000;"></canvas>
     </div>
+
+    <button class="button" onclick="updateParticle('sand')">Sand</button>
+    <button class="button button2" onclick="updateParticle('wood')">Wood</button>
+    <button class="button button5" onclick="updateParticle('clear')">Erase</button>
+    <input type="range" min="1" max="5" value="2" id="myRange">
+
     <script src="simulation.js"></script>
     <script src="util.js"></script>
     <script src="particles/particle.js"></script>
     <script src="particles/sand.js"></script>
     <script src="particles/wood.js"></script>
+    <script src="particles/water.js"></script>
+
 
 
 </body>
