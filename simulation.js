@@ -81,6 +81,10 @@ function updateParticle(particleName) {
             console.log("wood");
             currParticleFunction = () => new Wood();
             break;
+        case "water":
+            console.log("water");
+            currParticleFunction = () => new Water();
+            break;
         case "clear":
             clearBoard();
             break;
@@ -166,7 +170,7 @@ function gameLoop() {
     //drawFilledCircle(50, 50, 20);
     setTimeout(() => {
         window.requestAnimationFrame(gameLoop);
-    }, 1000 / 60);
+    }, 1000 / 144);
 }
 
 

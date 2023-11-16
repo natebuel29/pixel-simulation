@@ -7,6 +7,7 @@ class Water extends Particle {
     }
 
     simulate(gameWorld, x, y) {
+        this.color = getRandomColor(14, 135, 204, 10);
         var inBoundsRight = x + 1 < 100;
         var inBoundsLeft = x - 1 >= 0;
         // If no particle below, then move down
@@ -15,7 +16,6 @@ class Water extends Particle {
                 var curParticle = gameWorld[x][y];
                 gameWorld[x][y + 1] = curParticle;
                 gameWorld[x][y] = 0;
-
             }
         }
         else if (gameWorld[x][y] !== 0 && inBoundsRight && inBoundsLeft && gameWorld[x + 1][y + 1] === 0 && gameWorld[x - 1][y + 1] === 0) {
