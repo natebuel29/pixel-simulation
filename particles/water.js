@@ -3,6 +3,7 @@ class Water extends Particle {
     constructor() {
         var colorOffset = 10;
         super(getRandomColor(14, 135, 204, colorOffset));
+        this.type = 'water';
 
     }
 
@@ -29,6 +30,7 @@ class Water extends Particle {
         }
         else if (gameWorld[x][y] !== 0 && inBoundsRight && inBoundsLeft && gameWorld[x + 1][y] === 0 && gameWorld[x - 1][y] === 0) {
             if (y + 1 < 100 && x + 1 < 100) {
+
                 var randomDirection = Math.random() > 0.5 ? 1 : -1;
                 var curParticle = gameWorld[x][y];
                 gameWorld[x + randomDirection][y] = curParticle;
@@ -36,7 +38,6 @@ class Water extends Particle {
 
             }
         }
-
         // move left
         else if (gameWorld[x][y] !== 0 && inBoundsLeft && gameWorld[x - 1][y] === 0) {
             if (gameWorld[x - 1][y] === 0) {
