@@ -34,8 +34,8 @@ class Sand extends Particle {
 
             }
         }
-        else if (gameWorld[x][y] !== 0 && inBoundsRight && (y + 1 < 100 && x + 1 < 100) && (gameWorld[x + 1][y + 1] === 0 || gameWorld[x][y + 1].type === 'water')) {
-            if (gameWorld[x][y + 1].type === 'water') {
+        else if (gameWorld[x][y] !== 0 && inBoundsRight && (y + 1 < 100 && x + 1 < 100) && (gameWorld[x + 1][y + 1] === 0 || gameWorld[x + 1][y + 1].type === 'water')) {
+            if (gameWorld[x + 1][y + 1].type === 'water') {
                 var currSand = gameWorld[x][y];
                 var targetPar = gameWorld[x + 1][y + 1]
                 gameWorld[x + 1][y + 1] = currSand;
