@@ -87,7 +87,7 @@ function updateParticle(particleName) {
             currParticleFunction = () => new Water();
             break;
         case "clear":
-            gameCells.clearTiles();
+            gameCells.clearCells();
             break;
     }
 }
