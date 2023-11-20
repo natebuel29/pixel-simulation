@@ -6,20 +6,26 @@ class Sand extends Particle {
         this.type = 'sand';
     }
 
-    simulate(gameWorld, x, y) {
+    simulate(gameTiles, x, y) {
         var inBoundsRight = x + 1 < 100;
         var inBoundsLeft = x - 1 >= 0;
         // If no particle below, then move down
-        if (gameWorld[x][y] !== 0 && y + 1 < 100 && (gameWorld[x][y + 1] === 0 || gameWorld[x][y + 1].type === 'water')) {
-            if (gameWorld[x][y + 1].type === 'water') {
-                var currSand = gameWorld[x][y];
-                var targetPar = gameWorld[x][y + 1]
-                gameWorld[x][y + 1] = currSand;
-                gameWorld[x][y] = targetPar;
+        if (gameTiles.getCell(x, y, 0, 1) === 0) {
+            var tarCell = gameTiles.getCell(x, y, 0, 1);
+            if (tarCell.type === 'water') {
+                var curCell = gameTiles.getCell(x, y, 0, 0);
+                gameTiles.setCell(x, y, 0, 1, curCell);
+                gameTiles.setCell(x, y, 0, 0, tarCell);
+                // gameWorld[x][y + 1] = currSand;
+                // gameWorld[x][y] = targetPar;
             } else {
-                var currSand = gameWorld[x][y];
-                gameWorld[x][y + 1] = currSand;
-                gameWorld[x][y] = 0;
+                var curCell = gameTiles.getCell(x, y, 0, 0);
+                gameTiles.setCell(x, y, 0, 1, curCell);
+                gameTiles.setCell(x, y, 0, 0, 0);
+
+                // var currSand = gameWorld[x][y];
+                // gameWorld[x][y + 1] = currSand;
+                // gameWorld[x][y] = 0;
 
             }
 
