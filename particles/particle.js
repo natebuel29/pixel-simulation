@@ -3,6 +3,6 @@ class Particle {
         this.color = color;
     }
 
-    simulate(gameWorld, x, y) {
+    simulate(gameCells, x, y) {
     }
 }
