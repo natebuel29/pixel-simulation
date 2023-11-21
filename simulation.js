@@ -133,7 +133,6 @@ function render() {
         for (var j = 0; j < 100; j++) {
             if (gameCells.getCell(i, j, 0, 0) !== 0) {
                 var particle = gameCells.getCell(i, j, 0, 0);
-                ctx = canvas.getContext('2d');
                 var color = particle.color;
                 ctx.fillStyle = color;
                 ctx.fillRect(i * 5, j * 5, 5, 5);

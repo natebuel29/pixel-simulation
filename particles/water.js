@@ -30,7 +30,7 @@ class Water extends Particle {
         }
         //move right
         else if (gameCells.getCell(x, y, 1, 0) === 0) {
-            gameCells.swapCells(x, y, 1, 0);git
+            gameCells.swapCells(x, y, 1, 0);
         }
     }
 }
