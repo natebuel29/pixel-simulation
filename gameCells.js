@@ -28,6 +28,13 @@ class GameCells {
         }
     }
 
+    swapCells(x, y, xDirection, yDirection) {
+        var tarCell = gameCells.getCell(x, y, xDirection, yDirection);
+        var curCell = gameCells.getCell(x, y, 0, 0);
+        gameCells.setCell(x, y, xDirection, yDirection, curCell);
+        gameCells.setCell(x, y, 0, 0, tarCell);
+    }
+
     clearCells() {
         for (var i = 0; i < 100; i++) {
             for (var j = 0; j < 100; j++) {

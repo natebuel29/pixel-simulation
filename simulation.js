@@ -93,8 +93,7 @@ function init() {
     initEventListener(canvas);
 }
 
-function simulate() {
-
+function step() {
     var ran = frameCount % 2 == 0 ? true : false;
     for (var j = 99; j >= 0; j--) {
         for (ran ? i = 99 : i = 0; ran ? i >= 0 : i < 100; ran ? i-- : i++) {
@@ -155,7 +154,7 @@ window.onload = function () {
 function gameLoop() {
     frameCount++;
     if (!paused) {
-        simulate();
+        step();
     }
     render();
     //drawFilledCircle(50, 50, 20);
