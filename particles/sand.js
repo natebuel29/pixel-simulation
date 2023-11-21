@@ -6,60 +6,58 @@ class Sand extends Particle {
         this.type = 'sand';
     }
 
-    simulate(gameWorld, x, y) {
-        var inBoundsRight = x + 1 < 100;
-        var inBoundsLeft = x - 1 >= 0;
+    simulate(gameCells, x, y) {
         // If no particle below, then move down
-        if (gameWorld[x][y] !== 0 && y + 1 < 100 && (gameWorld[x][y + 1] === 0 || gameWorld[x][y + 1].type === 'water')) {
-            if (gameWorld[x][y + 1].type === 'water') {
-                var currSand = gameWorld[x][y];
-                var targetPar = gameWorld[x][y + 1]
-                gameWorld[x][y + 1] = currSand;
-                gameWorld[x][y] = targetPar;
+        if (gameCells.getCell(x, y, 0, 1) === 0 || gameCells.getCell(x, y, 0, 1).type === 'water') {
+            var tarCell = gameCells.getCell(x, y, 0, 1);
+            var curCell = gameCells.getCell(x, y, 0, 0);
+            if (tarCell === 0) {
+                gameCells.setCell(x, y, 0, 1, curCell);
+                gameCells.setCell(x, y, 0, 0, 0);
+
+            } else if (tarCell.type === 'water') {
+                gameCells.setCell(x, y, 0, 1, curCell);
+                gameCells.setCell(x, y, 0, 0, tarCell);
+            }
+        }
+        // should we randomly check left vs right per frame?
+        else if (gameCells.getCell(x, y, 1, 1) === 0 && gameCells.getCell(x, y, -1, 1) === 0) {
+            var randomDirection = Math.random() > 0.5 ? 1 : -1;
+            var curCell = gameCells.getCell(x, y, 0, 0);
+            gameCells.setCell(x, y, randomDirection, 1, curCell);
+            gameCells.setCell(x, y, 0, 0, 0);
+
+        }
+        else if (gameCells.getCell(x, y, 1, 1).type === 'water' && gameCells.getCell(x, y, -1, 1).type === 'water') {
+            var randomDirection = Math.random() > 0.5 ? 1 : -1;
+            var tarCell = gameCells.getCell(x, y, randomDirection, 1);
+            var curCell = gameCells.getCell(x, y, 0, 0);
+            gameCells.setCell(x, y, randomDirection, 1, curCell);
+            gameCells.setCell(x, y, 0, 0, tarCell);
+        }
+        else if (gameCells.getCell(x, y, 1, 1) === 0 || gameCells.getCell(x, y, 1, 1).type === 'water') {
+            var tarCell = gameCells.getCell(x, y, 1, 1);
+            var curCell = gameCells.getCell(x, y, 0, 0);
+            if (tarCell === 0) {
+                gameCells.setCell(x, y, 1, 1, curCell);
+                gameCells.setCell(x, y, 0, 0, 0);
             } else {
-                var currSand = gameWorld[x][y];
-                gameWorld[x][y + 1] = currSand;
-                gameWorld[x][y] = 0;
-
-            }
-
-
-        }
-        else if (gameWorld[x][y] !== 0 && inBoundsRight && inBoundsLeft && y + 1 < 100 && (gameWorld[x + 1][y + 1] === 0 || gameWorld[x + 1][y + 1].type === 'water') && gameWorld[x - 1][y + 1] === 0) {
-            if (y + 1 < 100 && x + 1 < 100) {
-                var randomDirection = Math.random() > 0.5 ? 1 : -1;
-                var currSand = gameWorld[x][y];
-                gameWorld[x + randomDirection][y + 1] = currSand;
-                gameWorld[x][y] = 0;
-
-            }
-        }
-        else if (gameWorld[x][y] !== 0 && inBoundsRight && (y + 1 < 100 && x + 1 < 100) && (gameWorld[x + 1][y + 1] === 0 || gameWorld[x + 1][y + 1].type === 'water')) {
-            if (gameWorld[x + 1][y + 1].type === 'water') {
-                var currSand = gameWorld[x][y];
-                var targetPar = gameWorld[x + 1][y + 1]
-                gameWorld[x + 1][y + 1] = currSand;
-                gameWorld[x][y] = targetPar;
-            } else {
-                var currSand = gameWorld[x][y];
-                gameWorld[x + 1][y + 1] = currSand;
-                gameWorld[x][y] = 0;
+                gameCells.setCell(x, y, 1, 1, curCell);
+                gameCells.setCell(x, y, 0, 0, tarCell);
             }
 
         }
-        else if (gameWorld[x][y] !== 0 && y + 1 < 100 && x - 1 >= 0) {
-            //todo: do we want to move water somewhere? \
-            if (gameWorld[x - 1][y + 1].type === 'water') {
-                var currSand = gameWorld[x][y];
-                var targetPar = gameWorld[x - 1][y + 1]
-                gameWorld[x - 1][y + 1] = currSand;
-                gameWorld[x][y] = targetPar;
-            }
-            else if (gameWorld[x - 1][y + 1] === 0) {
-                var currSand = gameWorld[x][y];
-                gameWorld[x - 1][y + 1] = currSand;
-                gameWorld[x][y] = 0;
+        else if (gameCells.getCell(x, y, -1, 1) === 0 || gameCells.getCell(x, y, -1, 1).type === 'water') {
+            var tarCell = gameCells.getCell(x, y, -1, 1);
+            var curCell = gameCells.getCell(x, y, 0, 0);
+            if (tarCell === 0) {
+                gameCells.setCell(x, y, -1, 1, curCell);
+                gameCells.setCell(x, y, 0, 0, 0);
 
+            }
+            else {
+                gameCells.setCell(x, y, -1, 1, curCell);
+                gameCells.setCell(x, y, 0, 0, tarCell);
             }
         }
     }

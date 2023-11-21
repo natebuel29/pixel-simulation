@@ -2,19 +2,15 @@
 // GLOBALS
 
 const displaySize = 500;
-const tempColor = "rgba(" + 194 + "," + 178 + "," + 128 + "," + (255 / 255) + ")";
-const r = 194;
-const g = 178;
-const b = 128;
 var mouseX = 0;
 var mouseY = 0;
 var mousePressed = false;
 var canvas;
 var ctx;
-var gameWorld = Array.from(Array(100), () => new Array(100));
 var currParticleFunction = () => new Water();
 var paused = false;
 var frameCount = 0;
+var gameCells;
 
 var slider = document.getElementById("myRange");
 var radius = slider.value;
@@ -86,7 +82,7 @@ function updateParticle(particleName) {
             currParticleFunction = () => new Water();
             break;
         case "clear":
-            clearBoard();
+            gameCells.clearCells();
             break;
     }
 }
@@ -102,9 +98,9 @@ function simulate() {
     var ran = frameCount % 2 == 0 ? true : false;
     for (var j = 99; j >= 0; j--) {
         for (ran ? i = 99 : i = 0; ran ? i >= 0 : i < 100; ran ? i-- : i++) {
-            if (gameWorld[i][j] !== 0) {
-                var particle = gameWorld[i][j];
-                particle.simulate(gameWorld, i, j);
+            if (gameCells.getCell(i, j, 0, 0) !== 0) {
+                var particle = gameCells.getCell(i, j, 0, 0);
+                particle.simulate(gameCells, i, j);
             }
         }
     }
@@ -115,7 +111,6 @@ function simulate() {
 
         drawFilledCircle(x, y, radius)
     }
-
 }
 
 // Function to draw a filled circle on the canvas using pixels
@@ -123,8 +118,8 @@ function drawFilledCircle(centerX, centerY, radius) {
     for (let x = -radius; x <= radius; x++) {
         for (let y = -radius; y <= radius; y++) {
             if (x * x + y * y < radius * radius) {
-                if ((centerX + x) >= 0 && (centerX + x) < 100 && (centerY + y) >= 0 && (centerY + y) < 100 && gameWorld[(centerX + x)][(centerY + y)] === 0) {
-                    gameWorld[(centerX + x)][(centerY + y)] = currParticleFunction();
+                if ((centerX + x) >= 0 && (centerX + x) < 100 && (centerY + y) >= 0 && (centerY + y) < 100 && gameCells.getCell((centerX + x), (centerY + y), 0, 0) === 0) {
+                    gameCells.setCell((centerX + x), (centerY + y), 0, 0, currParticleFunction());
                 }
             }
         }
@@ -137,8 +132,8 @@ function render() {
         canvas.width, canvas.height);
     for (var i = 0; i < 100; i++) {
         for (var j = 0; j < 100; j++) {
-            if (gameWorld[i][j] !== 0) {
-                var particle = gameWorld[i][j]
+            if (gameCells.getCell(i, j, 0, 0) !== 0) {
+                var particle = gameCells.getCell(i, j, 0, 0);
                 ctx = canvas.getContext('2d');
                 var color = particle.color;
                 ctx.fillStyle = color;
@@ -149,11 +144,7 @@ function render() {
 }
 
 window.onload = function () {
-    for (var i = 0; i < 100; i++) {
-        for (var j = 0; j < 100; j++) {
-            gameWorld[i][j] = 0;
-        }
-    }
+    gameCells = new GameCells(5, 100);
     init();
     // The proper game loop
     window.requestAnimationFrame(gameLoop);

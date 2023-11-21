@@ -6,7 +6,7 @@ class Wood extends Particle {
         this.type = 'wood';
     }
 
-    simulate(gameWorld, x, y) {
+    simulate(gameCells, x, y) {
     }
 
 }
