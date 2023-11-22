@@ -2,7 +2,7 @@
 class Sand extends Particle {
     constructor() {
         var colorOffset = 10;
-        super(getRandomColor(194, 178, 128, colorOffset));
+        super(getRandomColor(194, 178, 128, 1, colorOffset));
         this.type = 'sand';
     }
 
@@ -23,7 +23,6 @@ class Sand extends Particle {
         }
         else if (gameCells.getCell(x, y, -1, 1) === 0 || gameCells.getCell(x, y, -1, 1).type === 'water') {
             gameCells.swapCells(x, y, -1, 1);
-
         }
     }
 }

@@ -2,13 +2,13 @@
 class Water extends Particle {
     constructor() {
         var colorOffset = 10;
-        super(getRandomColor(14, 135, 204, colorOffset));
+        super(getRandomColor(14, 135, 245, 1, colorOffset));
         this.type = 'water';
 
     }
 
     simulate(gameCells, x, y) {
-        this.color = getRandomColor(14, 135, 204, 10);
+        this.color = getRandomColor(14, 135, 245, 1, 10);
         // If no particle below, then move down
         if (gameCells.getCell(x, y, 0, 1) === 0) {
             gameCells.swapCells(x, y, 0, 1);

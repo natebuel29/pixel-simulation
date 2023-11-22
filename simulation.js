@@ -7,7 +7,7 @@ var mouseY = 0;
 var mousePressed = false;
 var canvas;
 var ctx;
-var currParticleFunction = () => new Water();
+var currParticleFunction = () => new Smoke();
 var paused = false;
 var frameCount = 0;
 var gameCells;
@@ -81,6 +81,10 @@ function updateParticle(particleName) {
             console.log("water");
             currParticleFunction = () => new Water();
             break;
+        case "smoke":
+            console.log("smoke");
+            currParticleFunction = () => new Smoke();
+            break;
         case "clear":
             gameCells.clearCells();
             break;
@@ -97,9 +101,10 @@ function step() {
     var ran = frameCount % 2 == 0 ? true : false;
     for (var j = 99; j >= 0; j--) {
         for (ran ? i = 99 : i = 0; ran ? i >= 0 : i < 100; ran ? i-- : i++) {
-            if (gameCells.getCell(i, j, 0, 0) !== 0) {
-                var particle = gameCells.getCell(i, j, 0, 0);
+            var particle = gameCells.getCell(i, j, 0, 0);
+            if (particle !== 0 && !particle.hasBeenUpdated) {
                 particle.simulate(gameCells, i, j);
+                particle.hasBeenUpdated = true;
             }
         }
     }
@@ -118,7 +123,9 @@ function drawFilledCircle(centerX, centerY, radius) {
         for (let y = -radius; y <= radius; y++) {
             if (x * x + y * y < radius * radius) {
                 if ((centerX + x) >= 0 && (centerX + x) < 100 && (centerY + y) >= 0 && (centerY + y) < 100 && gameCells.getCell((centerX + x), (centerY + y), 0, 0) === 0) {
-                    gameCells.setCell((centerX + x), (centerY + y), 0, 0, currParticleFunction());
+                    if (Math.random() > 0.7) {
+                        gameCells.setCell((centerX + x), (centerY + y), 0, 0, currParticleFunction());
+                    }
                 }
             }
         }
@@ -156,6 +163,15 @@ function gameLoop() {
         step();
     }
     render();
+    for (var j = 99; j >= 0; j--) {
+        for (i = 0; i < 100; i++) {
+            var particle = gameCells.getCell(i, j, 0, 0);
+            if (particle !== 0) {
+                particle.hasBeenUpdated = false;
+            }
+        }
+    }
+
     //drawFilledCircle(50, 50, 20);
     setTimeout(() => {
         window.requestAnimationFrame(gameLoop);

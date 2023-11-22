@@ -7,6 +7,6 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-function getRandomColor(r, g, b, colorOffset) {
-    return "rgba(" + (r + getRandomInt(colorOffset)) + "," + (g + getRandomInt(colorOffset)) + "," + (b + getRandomInt(colorOffset)) + "," + 1 + ")";
+function getRandomColor(r, g, b, a, colorOffset) {
+    return "rgba(" + (r + getRandomInt(colorOffset)) + "," + (g + getRandomInt(colorOffset)) + "," + (b + getRandomInt(colorOffset)) + "," + a + ")";
 }

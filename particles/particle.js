@@ -1,5 +1,6 @@
 class Particle {
     constructor(color) {
+        this.hasBeenUpdated = false;
         this.color = color;
     }
 
