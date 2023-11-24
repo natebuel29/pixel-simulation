@@ -7,7 +7,7 @@ var mouseY = 0;
 var mousePressed = false;
 var canvas;
 var ctx;
-var currParticleFunction = () => new Smoke();
+var currParticleFunction = () => new Fire();
 var paused = false;
 var frameCount = 0;
 var gameCells;
@@ -80,6 +80,10 @@ function updateParticle(particleName) {
         case "water":
             console.log("water");
             currParticleFunction = () => new Water();
+            break;
+        case "fire":
+            console.log("fire");
+            currParticleFunction = () => new Fire();
             break;
         case "smoke":
             console.log("smoke");
