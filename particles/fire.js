@@ -30,14 +30,8 @@ class Fire extends Particle {
         if (this.life <= 0) {
             gameCells.setCell(x, y, 0, 0, new Smoke());
         }
-        var randomColor = this.fireColors[this.getRandomInt(0, this.fireColors.length - 1)];
+        var randomColor = this.fireColors[getRandomInt(0, this.fireColors.length - 1)];
         this.color = getRandomColor(randomColor.r, randomColor.g, randomColor.b, 1, 5);
-    }
-
-    getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
     }
 
 }

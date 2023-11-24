@@ -11,7 +11,7 @@ class Smoke extends Particle {
 
     simulate(gameCells, x, y) {
         const curTime = new Date().getTime();
-        if (curTime - this.lastTime >= this.getRandomInt(50, 500)) {
+        if (curTime - this.lastTime >= getRandomInt(50, 500)) {
             this.life -= this.decayRate;
             if (this.life <= 0) {
                 gameCells.setCell(x, y, 0, 0, 0);
@@ -47,10 +47,4 @@ class Smoke extends Particle {
         }
     }
 
-
-    getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
 }
