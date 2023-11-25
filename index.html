@@ -11,16 +11,18 @@
         <canvas id="game" width="500" height="500" style="border:3px solid #000000;"></canvas>
     </div>
 
-    <button class="button" onclick="updateParticle('sand')">Sand</button>
-    <button class="button button2" onclick="updateParticle('wood')">Wood</button>
-    <button class="button button8" onclick="updateParticle('stone')">Stone</button>
-    <button class="button button3" onclick="updateParticle('water')">Water</button>
-    <button class="button button7" onclick="updateParticle('acid')">Acid</button>
-    <button class="button button4" onclick="updateParticle('smoke')">Smoke</button>
-    <button class="button button6" onclick="updateParticle('fire')">Fire</button>
-    <button class="button button5" onclick="updateParticle('clear')">Erase</button>
+    <div class="buttonDiv">
+        <button class="button" onclick="updateParticle('sand')">Sand</button>
+        <button class="button button2" onclick="updateParticle('wood')">Wood</button>
+        <button class="button button8" onclick="updateParticle('stone')">Stone</button>
+        <button class="button button3" onclick="updateParticle('water')">Water</button>
+        <button class="button button7" onclick="updateParticle('acid')">Acid</button>
+        <button class="button button4" onclick="updateParticle('smoke')">Smoke</button>
+        <button class="button button6" onclick="updateParticle('fire')">Fire</button>
+        <button class="button button5" onclick="updateParticle('clear')">Erase</button>
 
-    <input type="range" min="1" max="5" value="2" id="myRange">
+        <input type="range" min="1" max="5" value="2" id="myRange">
+    </div>
 
     <script src="simulation.js"></script>
     <script src="gameCells.js"></script>
