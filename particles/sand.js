@@ -4,6 +4,7 @@ class Sand extends Particle {
         var colorOffset = 10;
         super(getRandomColor(194, 178, 128, 1, colorOffset));
         this.type = 'sand';
+        this.isCorrodible = true;
     }
 
     simulate(gameCells, x, y) {

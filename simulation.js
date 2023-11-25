@@ -7,7 +7,7 @@ var mouseY = 0;
 var mousePressed = false;
 var canvas;
 var ctx;
-var currParticleFunction = () => new Fire();
+var currParticleFunction = () => new Stone();
 var paused = false;
 var frameCount = 0;
 var gameCells;
@@ -77,9 +77,17 @@ function updateParticle(particleName) {
             console.log("wood");
             currParticleFunction = () => new Wood();
             break;
+        case "stone":
+            console.log("stone");
+            currParticleFunction = () => new Stone();
+            break;
         case "water":
             console.log("water");
             currParticleFunction = () => new Water();
+            break;
+        case "acid":
+            console.log("acid");
+            currParticleFunction = () => new Acid();
             break;
         case "fire":
             console.log("fire");
