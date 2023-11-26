@@ -26,7 +26,6 @@ class Acid extends Particle {
         else if (gameCells.getCell(x, y, 1, 1) !== 0 && gameCells.getCell(x, y, 1, 1).type === 'fire') {
             gameCells.setCell(x, y, 1, 1, 0)
         }
-
         else if (gameCells.getCell(x, y, -1, 1) === 0 && gameCells.getCell(x, y, -1, 1).type === 'fire') {
             gameCells.setCell(x, y, -1, 1, 0)
         }
