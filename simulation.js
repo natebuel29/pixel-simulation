@@ -97,6 +97,10 @@ function updateParticle(particleName) {
             console.log("smoke");
             currParticleFunction = () => new Smoke();
             break;
+        case "erase":
+            console.log("erase");
+            currParticleFunction = () => 0;
+            break;
         case "clear":
             gameCells.clearCells();
             break;
@@ -134,7 +138,7 @@ function drawFilledCircle(centerX, centerY, radius) {
     for (let x = -radius; x <= radius; x++) {
         for (let y = -radius; y <= radius; y++) {
             if (x * x + y * y < radius * radius) {
-                if ((centerX + x) >= 0 && (centerX + x) < 100 && (centerY + y) >= 0 && (centerY + y) < 100 && gameCells.getCell((centerX + x), (centerY + y), 0, 0) === 0) {
+                if ((centerX + x) >= 0 && (centerX + x) < 100 && (centerY + y) >= 0 && (centerY + y) < 100 && (gameCells.getCell((centerX + x), (centerY + y), 0, 0) === 0 || currParticleFunction() === 0)) {
                     if (Math.random() > 0.7) {
                         gameCells.setCell((centerX + x), (centerY + y), 0, 0, currParticleFunction());
                     }
