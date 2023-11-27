@@ -7,4 +7,5 @@ A couple of months ago i repicked up the video game Noita again. Noita is a roug
 ## Resources
 
 https://maxbittker.com/making-sandspiel - creator of sandspiel has an awesome blog which helped me understand the rules and logic needed to implement sim
+
 [Noita GDC Vid](https://www.youtube.com/watch?v=prXuyMCgbTc&t=1107s) - A dev from Nolla games discusses the creation of Noita and the Falling Everything game engine
