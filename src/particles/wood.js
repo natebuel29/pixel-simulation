@@ -10,5 +10,4 @@ class Wood extends Solid {
     simulate(gameCells, x, y) {
         this.handleBurn(gameCells, x, y, this.burnProbValue);
     }
-
 }
