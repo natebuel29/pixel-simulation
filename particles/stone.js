@@ -1,4 +1,4 @@
-class Stone extends Particle {
+class Stone extends Solid {
 
     constructor() {
         var colorOffset = 20;
