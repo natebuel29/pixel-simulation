@@ -1,8 +1,7 @@
 
 class Wood extends Solid {
     constructor() {
-        var colorOffset = 5;
-        super(getRandomColor(89, 80, 62, 1, colorOffset));
+        super(getRandomColor(89, 80, 62, 1, 5));
         this.type = 'wood';
         this.burnProbValue = .01;
         this.isCorrodible = true;

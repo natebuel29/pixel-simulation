@@ -1,8 +1,7 @@
 
 class Sand extends Solid {
     constructor() {
-        var colorOffset = 10;
-        super(getRandomColor(194, 178, 128, 1, colorOffset));
+        super(getRandomColor(194, 178, 128, 1, 10));
         this.type = 'sand';
         this.isCorrodible = true;
         this.swapableParticles = ['water', 'acid']

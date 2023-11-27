@@ -1,7 +1,6 @@
 class Smoke extends Gas {
 
     constructor() {
-        var colorOffset = 10;
         super(getRandomColor(50, 50, 50, 1, 5));
         this.life = 1;
         this.type = 'smoke';

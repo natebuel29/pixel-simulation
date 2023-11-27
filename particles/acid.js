@@ -1,16 +1,16 @@
 
 class Acid extends Liquid {
     constructor() {
-        var colorOffset = 10;
-        super(getRandomColor(143, 245, 9, 1, colorOffset));
+        super(getRandomColor(143, 245, 9, 1, 10));
         this.type = 'acid';
         this.corrosionProb = 0.03;
         this.swappableTypes = ['water'];
     }
 
     simulate(gameCells, x, y) {
-        this.color = getRandomColor(143, 245, 9, 1, 20);
+        this.color = getRandomColor(143, 245, 9, 1, 10);
         this.moveDown(gameCells, x, y, this.swappableTypes);
+        this.snuffFire(gameCells, x, y);
         this.corrodeParticles(gameCells, x, y);
     }
 

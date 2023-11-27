@@ -34,12 +34,4 @@ class Gas extends Particle {
         }
     }
 
-    handleDecay(gameCells, x, y, life, decayRate) {
-        life -= decayRate;
-        if (life <= 0) {
-            gameCells.setCell(x, y, 0, 0, 0);
-        }
-
-        return life;
-    }
 }

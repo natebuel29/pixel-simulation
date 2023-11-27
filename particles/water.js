@@ -1,8 +1,7 @@
 
 class Water extends Liquid {
     constructor() {
-        var colorOffset = 10;
-        super(getRandomColor(14, 135, 245, 1, colorOffset));
+        super(getRandomColor(14, 135, 245, 1, 10));
         this.type = 'water';
     }
 

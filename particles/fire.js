@@ -1,8 +1,7 @@
 
 class Fire extends Particle {
     constructor() {
-        var colorOffset = 5;
-        super(getRandomColor(226, 88, 34, 1, colorOffset));
+        super(getRandomColor(226, 88, 34, 1, 5));
         this.type = 'fire';
         this.fireColors = [
             {
@@ -30,6 +29,7 @@ class Fire extends Particle {
         if (this.life <= 0) {
             gameCells.setCell(x, y, 0, 0, new Smoke());
         }
+        // this.life = this.handleDecay(gameCells, x, y, this.life, this.decayRate);
         var randomColor = this.fireColors[getRandomInt(0, this.fireColors.length - 1)];
         this.color = getRandomColor(randomColor.r, randomColor.g, randomColor.b, 1, 5);
     }
