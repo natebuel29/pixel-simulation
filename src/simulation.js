@@ -45,7 +45,6 @@ function initEventListener(canvas) {
     });
 
     document.addEventListener("keydown", (event) => {
-        console.log(event.key === 'w');
         if (event.key === 'w') {
             currParticleFunction = () => new Wood();
         } else if (event.key === 's') {
@@ -125,8 +124,6 @@ function step() {
         for (ran ? i = 99 : i = 0; ran ? i >= 0 : i < 100; ran ? i-- : i++) {
             var particle = gameCells.getCell(i, j, 0, 0);
             if (particle !== 0 && !particle.hasBeenUpdated) {
-                console.log(particle);
-                console.log(`${i}, ${j}`)
                 particle.simulate(gameCells, i, j);
                 particle.hasBeenUpdated = true;
             }

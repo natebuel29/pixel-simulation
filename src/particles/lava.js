@@ -55,7 +55,7 @@ class Lava extends Liquid {
             gameCells.setCell(x, y, -1, 1, new Obsidian());
         }
         else if (gameCells.getCell(x, y, 1, 1) !== 0 && gameCells.getCell(x, y, 1, 1).type === 'water') {
-            gameCells.s(x, y, 0, 0, new Obsidian());
+            gameCells.setCell(x, y, 0, 0, new Obsidian());
             gameCells.setCell(x, y, 1, 1, new Obsidian());
         }
         else if (gameCells.getCell(x, y, -1, -1) !== 0 && gameCells.getCell(x, y, -1, -1).type === 'water') {
