@@ -11,29 +11,30 @@ class Particle {
 
     handleBurn(gameCells, x, y, burnProbValue) {
         var burnProb = 0;
-        if (gameCells.getCell(x, y, 0, 1) !== 0 && gameCells.getCell(x, y, 0, 1).type === 'fire') {
+        const burnableTypes = ['fire', 'lava']
+        if (gameCells.getCell(x, y, 0, 1) !== 0 && burnableTypes.includes(gameCells.getCell(x, y, 0, 1).type)) {
             burnProb += burnProbValue;
         }
-        else if (gameCells.getCell(x, y, 0, -1) !== 0 && gameCells.getCell(x, y, 0, -1).type === 'fire') {
+        else if (gameCells.getCell(x, y, 0, -1) !== 0 && burnableTypes.includes(gameCells.getCell(x, y, 0, -1).type)) {
             burnProb += burnProbValue;
         }
-        else if (gameCells.getCell(x, y, -1, 1) !== 0 && gameCells.getCell(x, y, -1, 1).type === 'fire') {
+        else if (gameCells.getCell(x, y, -1, 1) !== 0 && burnableTypes.includes(gameCells.getCell(x, y, -1, 1).type)) {
             burnProb += burnProbValue;
         }
-        else if (gameCells.getCell(x, y, 1, 1) !== 0 && gameCells.getCell(x, y, 1, 1).type === 'fire') {
+        else if (gameCells.getCell(x, y, 1, 1) !== 0 && burnableTypes.includes(gameCells.getCell(x, y, 1, 1).type)) {
             burnProb += burnProbValue;
         }
-        else if (gameCells.getCell(x, y, -1, -1) !== 0 && gameCells.getCell(x, y, -1, -1).type === 'fire') {
+        else if (gameCells.getCell(x, y, -1, -1) !== 0 && burnableTypes.includes(gameCells.getCell(x, y, -1, -1).type)) {
             burnProb += burnProbValue;
         }
-        else if (gameCells.getCell(x, y, 1, -1) !== 0 && gameCells.getCell(x, y, 1, -1).type === 'fire') {
+        else if (gameCells.getCell(x, y, 1, -1) !== 0 && burnableTypes.includes(gameCells.getCell(x, y, 1, -1).type)) {
             burnProb += burnProbValue;
         }
-        else if (gameCells.getCell(x, y, 1, 0) !== 0 && gameCells.getCell(x, y, 1, 0).type === 'fire') {
+        else if (gameCells.getCell(x, y, 1, 0) !== 0 && burnableTypes.includes(gameCells.getCell(x, y, 1, 0).type)) {
             burnProb += burnProbValue;
         }
         // move left
-        else if (gameCells.getCell(x, y, -1, 0) !== 0 && gameCells.getCell(x, y, -1, 0).type === 'fire') {
+        else if (gameCells.getCell(x, y, -1, 0) !== 0 && burnableTypes.includes(gameCells.getCell(x, y, -1, 0).type)) {
             burnProb += burnProbValue;
         }
 

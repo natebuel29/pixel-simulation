@@ -15,7 +15,7 @@ class GameCells {
         if ((y + yDirection >= 0 && y + yDirection < this.maxCells) && (x + xDirection >= 0 && x + xDirection < this.maxCells)) {
             return this.cells[x + xDirection][y + yDirection];
         } else {
-            return "out of bounds";
+            return "OOB";
         }
     }
 
@@ -25,6 +25,7 @@ class GameCells {
             this.cells[x + xDirection][y + yDirection] = value;
         } else {
             console.log("ALERT ALERT WE ARE OUT OF BOUNDS")
+            console.log(`x: ${x} + xDirection: ${xDirection}, y: ${y} + yDirection: ${yDirection}`)
         }
     }
 

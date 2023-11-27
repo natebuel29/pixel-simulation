@@ -5,7 +5,6 @@ class Stone extends Solid {
         this.type = 'stone';
     }
 
-
     simulate(gameCells, x, y) {
     }
 }

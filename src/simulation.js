@@ -1,17 +1,15 @@
 
 // GLOBALS
-
 const displaySize = 500;
 var mouseX = 0;
 var mouseY = 0;
 var mousePressed = false;
 var canvas;
 var ctx;
-var currParticleFunction = () => new Stone();
+var currParticleFunction = () => new Obsidian();
 var paused = false;
 var frameCount = 0;
 var gameCells;
-
 var slider = document.getElementById("myRange");
 var radius = slider.value;
 
@@ -81,6 +79,10 @@ function updateParticle(particleName) {
             console.log("stone");
             currParticleFunction = () => new Stone();
             break;
+        case "obsidian":
+            console.log("obsidian");
+            currParticleFunction = () => new Obsidian();
+            break;
         case "water":
             console.log("water");
             currParticleFunction = () => new Water();
@@ -92,6 +94,10 @@ function updateParticle(particleName) {
         case "fire":
             console.log("fire");
             currParticleFunction = () => new Fire();
+            break;
+        case "lava":
+            console.log("lava");
+            currParticleFunction = () => new Lava();
             break;
         case "smoke":
             console.log("smoke");
@@ -119,6 +125,8 @@ function step() {
         for (ran ? i = 99 : i = 0; ran ? i >= 0 : i < 100; ran ? i-- : i++) {
             var particle = gameCells.getCell(i, j, 0, 0);
             if (particle !== 0 && !particle.hasBeenUpdated) {
+                console.log(particle);
+                console.log(`${i}, ${j}`)
                 particle.simulate(gameCells, i, j);
                 particle.hasBeenUpdated = true;
             }
